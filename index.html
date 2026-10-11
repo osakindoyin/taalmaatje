@@ -2,8 +2,12 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<script
+  src="https://js-de.sentry-cdn.com/599d9d90be3dabed58c672cde7968c57.min.js"
+  crossorigin="anonymous"
+></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nederlands Oefenen</title>
+<title>TaalMaatje</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -15,7 +19,6 @@
     --accent: #4F6EF7;
     --accent2: #7C3AED;
     --success: #10B981;
-    --warning: #F59E0B;
     --text: #E8EAF6;
     --text-muted: #8B90B0;
     --a1: #F59E0B;
@@ -33,7 +36,6 @@
     margin: 0 auto;
   }
 
-  /* SCREENS */
   .screen { display: none; min-height: 100vh; flex-direction: column; }
   .screen.active { display: flex; }
 
@@ -57,11 +59,7 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .tagline {
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.5;
-  }
+  .tagline { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
   .level-section { padding: 24px; }
 
@@ -93,27 +91,12 @@
     transform: translateY(-2px);
   }
 
-  .level-badge {
-    display: inline-block;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
+  .level-badge { display: inline-block; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
   .level-card.a1 .level-badge { color: var(--a1); }
   .level-card.a2 .level-badge { color: var(--a2); }
+  .level-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
-  .level-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
-
-  .exercise-type-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .exercise-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .type-card {
     background: var(--surface);
@@ -131,20 +114,10 @@
   }
 
   .type-icon { font-size: 28px; margin-bottom: 10px; }
+  .type-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .type-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-  .type-name {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .type-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
-
-  /* EXERCISE SCREEN */
+  /* EXERCISE HEADER */
   .ex-header {
     display: flex;
     align-items: center;
@@ -162,11 +135,8 @@
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 10px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
     cursor: pointer;
     font-size: 16px;
     flex-shrink: 0;
@@ -175,12 +145,18 @@
   .ex-title { font-size: 16px; font-weight: 600; flex: 1; }
 
   .level-pill {
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 11px; font-weight: 700;
     padding: 4px 10px;
     border-radius: 20px;
     background: var(--surface2);
     border: 1px solid var(--border);
+  }
+
+  .progress-bar { height: 3px; background: var(--surface2); }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.3s ease;
   }
 
   .ex-body { padding: 24px; flex: 1; overflow-y: auto; }
@@ -195,62 +171,36 @@
 
   .task-title {
     font-family: 'Lora', serif;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    line-height: 1.3;
+    font-size: 18px; font-weight: 600;
+    margin-bottom: 12px; line-height: 1.3;
   }
 
-  .task-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
+  .task-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
 
-  .task-points {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .task-points { display: flex; flex-direction: column; gap: 8px; }
 
-  .task-point {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-  }
+  .task-point { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.5; }
 
   .point-dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--accent);
-    margin-top: 6px;
-    flex-shrink: 0;
+    margin-top: 6px; flex-shrink: 0;
   }
 
   .email-template {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 20px;
+    padding: 16px; margin-bottom: 20px;
   }
 
-  .email-meta {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-  }
-
+  .email-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
   .email-meta span { color: var(--text); }
 
   .email-greeting {
     font-size: 14px;
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 12px; padding-top: 12px;
     border-top: 1px solid var(--border);
     color: var(--text-muted);
   }
@@ -263,10 +213,8 @@
     padding: 16px;
     color: var(--text);
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    resize: none;
-    min-height: 160px;
+    font-size: 15px; line-height: 1.7;
+    resize: none; min-height: 160px;
     outline: none;
     transition: border-color 0.2s;
     margin-bottom: 16px;
@@ -278,14 +226,11 @@
   .submit-btn {
     width: 100%;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none;
-    border-radius: 14px;
+    border: none; border-radius: 14px;
     color: white;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 16px;
-    cursor: pointer;
+    font-size: 15px; font-weight: 600;
+    padding: 16px; cursor: pointer;
     transition: opacity 0.2s, transform 0.1s;
     margin-bottom: 12px;
   }
@@ -293,106 +238,28 @@
   .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  .example-btn {
+  .new-exercise-btn {
     width: 100%;
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 14px;
     color: var(--text-muted);
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    cursor: pointer;
+    font-size: 14px; font-weight: 500;
+    padding: 14px; cursor: pointer;
     transition: all 0.2s;
     margin-bottom: 24px;
   }
 
-  .example-btn:hover { border-color: var(--accent); color: var(--text); }
+  .new-exercise-btn:hover { border-color: var(--accent); color: var(--text); }
 
-  /* FEEDBACK */
-  .feedback-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
+  /* LOADING */
+  .loading-state { text-align: center; padding: 40px 24px; }
 
-  .feedback-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-
-  .feedback-title { font-size: 15px; font-weight: 600; }
-
-  .score-badge {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--accent);
-  }
-
-  .feedback-section { margin-bottom: 16px; }
-
-  .feedback-section-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
-
-  .feedback-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 8px;
-  }
-
-  .feedback-icon { flex-shrink: 0; font-size: 14px; }
-
-  .correction-row {
-    background: var(--surface2);
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 8px;
-    font-size: 13px;
-  }
-
-  .correction-wrong { color: #F87171; margin-bottom: 4px; text-decoration: line-through; }
-  .correction-right { color: var(--success); }
-
-  .improved-version {
-    background: linear-gradient(135deg, rgba(79,110,247,0.1), rgba(124,58,237,0.1));
-    border: 1px solid rgba(79,110,247,0.3);
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 16px;
-    font-style: italic;
-  }
-
-  .loading-state {
-    text-align: center;
-    padding: 40px 24px;
-  }
-
-  .loading-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
+  .loading-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
 
   .dot {
-    width: 10px;
-    height: 10px;
+    width: 10px; height: 10px;
     border-radius: 50%;
     background: var(--accent);
     animation: bounce 1.2s infinite;
@@ -408,19 +275,65 @@
 
   .loading-text { color: var(--text-muted); font-size: 14px; }
 
+  /* FEEDBACK */
+  .feedback-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px; margin-bottom: 16px;
+  }
+
+  .feedback-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .feedback-title { font-size: 15px; font-weight: 600; }
+  .score-badge { font-size: 20px; font-weight: 700; color: var(--accent); }
+
+  .feedback-section { margin-bottom: 16px; }
+
+  .feedback-section-title {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+
+  .feedback-item {
+    display: flex; align-items: flex-start;
+    gap: 10px; font-size: 13px; line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .feedback-icon { flex-shrink: 0; font-size: 14px; }
+
+  .correction-row {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 12px; margin-bottom: 8px; font-size: 13px;
+  }
+
+  .correction-wrong { color: #F87171; margin-bottom: 4px; text-decoration: line-through; }
+  .correction-right { color: var(--success); }
+
+  .improved-version {
+    background: linear-gradient(135deg, rgba(79,110,247,0.1), rgba(124,58,237,0.1));
+    border: 1px solid rgba(79,110,247,0.3);
+    border-radius: 12px;
+    padding: 16px; font-size: 14px; line-height: 1.7;
+    margin-bottom: 16px; font-style: italic;
+  }
+
   .try-again-btn {
     width: 100%;
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    color: var(--text);
+    border-radius: 14px; color: var(--text);
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 12px;
+    font-size: 14px; font-weight: 500;
+    padding: 14px; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 12px;
   }
 
   .try-again-btn:hover { border-color: var(--accent); }
@@ -428,116 +341,34 @@
   .next-btn {
     width: 100%;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none;
-    border-radius: 14px;
+    border: none; border-radius: 14px;
     color: white;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 16px;
-    cursor: pointer;
+    font-size: 15px; font-weight: 600;
+    padding: 16px; cursor: pointer;
     transition: opacity 0.2s;
   }
 
   .next-btn:hover { opacity: 0.9; }
 
-  /* PROGRESS BAR */
-  .progress-bar {
-    height: 3px;
-    background: var(--surface2);
-    margin-bottom: 0;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    transition: width 0.3s ease;
-  }
-
-  /* EXERCISE SELECT */
-  .ex-list { padding: 16px 24px 24px; flex: 1; overflow-y: auto; }
-
-  .ex-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px 20px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
+  .generating-badge {
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-  }
-
-  .ex-item:hover {
-    border-color: var(--accent);
-    background: var(--surface2);
-    transform: translateY(-1px);
-  }
-
-  .ex-item-icon { font-size: 28px; flex-shrink: 0; }
-
-  .ex-item-info { flex: 1; }
-
-  .ex-item-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-
-  .ex-item-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-
-  .ex-item-arrow { color: var(--text-muted); font-size: 18px; }
-
-  .ex-select-header {
-    padding: 20px 24px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ex-select-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-  .ex-select-sub { font-size: 13px; color: var(--text-muted); }
-
-  /* EXAMPLE MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 100;
-    align-items: flex-end;
-  }
-
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--surface);
-    border-radius: 24px 24px 0 0;
-    padding: 24px;
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-
-  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-
-  .modal-text {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--text-muted);
-    font-style: italic;
+    gap: 8px;
+    background: rgba(79,110,247,0.15);
+    border: 1px solid rgba(79,110,247,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--accent);
     margin-bottom: 20px;
   }
 
-  .modal-close {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    cursor: pointer;
+  .generating-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: bounce 1.2s infinite;
   }
 </style>
 </head>
@@ -546,8 +377,8 @@
 <!-- HOME SCREEN -->
 <div class="screen active" id="screen-home">
   <div class="home-header">
-    <div class="logo">Nederlands <span>Oefenen</span></div>
-    <div class="tagline">Oefen schrijven voor je A1 of A2 toets — met AI feedback</div>
+    <div class="logo">Taal<span>Maatje</span></div>
+    <div class="tagline">Oefen schrijven voor je A1 of A2 toets — met AI feedback op maat</div>
   </div>
 
   <div class="level-section">
@@ -563,24 +394,24 @@
       </div>
     </div>
 
-    <div class="section-label">Kies een oefening</div>
+    <div class="section-label">Kies een oefentype</div>
     <div class="exercise-type-grid">
-      <div class="type-card" onclick="goToExerciseSelect('email')">
+      <div class="type-card" onclick="startDynamicExercise('email')">
         <div class="type-icon">✉️</div>
         <div class="type-name">E-mail schrijven</div>
-        <div class="type-desc">Schrijf een e-mail met de juiste onderdelen</div>
+        <div class="type-desc">Schrijf een e-mail in een realistische situatie</div>
       </div>
-      <div class="type-card" onclick="goToExerciseSelect('tekst')">
+      <div class="type-card" onclick="startDynamicExercise('tekst')">
         <div class="type-icon">📰</div>
         <div class="type-name">Tekst schrijven</div>
-        <div class="type-desc">Schrijf een tekst voor de wijkkrant</div>
+        <div class="type-desc">Schrijf een tekst over een onderwerp</div>
       </div>
-      <div class="type-card" onclick="goToExerciseSelect('formulier')">
+      <div class="type-card" onclick="startDynamicExercise('formulier')">
         <div class="type-icon">📋</div>
         <div class="type-name">Formulier invullen</div>
         <div class="type-desc">Vul een formulier correct in</div>
       </div>
-      <div class="type-card" onclick="goToExerciseSelect('vrij')">
+      <div class="type-card" onclick="startDynamicExercise('vrij')">
         <div class="type-icon">✏️</div>
         <div class="type-name">Vrij schrijven</div>
         <div class="type-desc">Schrijf over een onderwerp naar keuze</div>
@@ -589,23 +420,10 @@
   </div>
 </div>
 
-<!-- EXERCISE SELECT SCREEN -->
-<div class="screen" id="screen-select">
-  <div class="ex-header">
-    <div class="back-btn" onclick="showScreen('home')">←</div>
-    <div class="ex-title" id="select-title">Kies een oefening</div>
-    <div class="level-pill" id="select-level-pill">A2</div>
-  </div>
-  <div class="ex-select-header">
-    <div class="ex-select-sub" id="select-subtitle">Kies een oefening om te beginnen</div>
-  </div>
-  <div class="ex-list" id="exercise-list"></div>
-</div>
-
 <!-- EXERCISE SCREEN -->
 <div class="screen" id="screen-exercise">
   <div class="ex-header">
-    <div class="back-btn" onclick="showScreen('select')">←</div>
+    <div class="back-btn" onclick="showScreen('home')">←</div>
     <div class="ex-title" id="ex-title-text">Oefening</div>
     <div class="level-pill" id="ex-level-pill">A2</div>
   </div>
@@ -613,203 +431,22 @@
   <div class="ex-body" id="exercise-body"></div>
 </div>
 
-<!-- EXAMPLE MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-title">💡 Voorbeeldantwoord</div>
-    <div class="modal-text" id="modal-content"></div>
-    <button class="modal-close" onclick="closeModalDirect()">Sluiten</button>
-  </div>
-</div>
-
 <script>
   let currentLevel = 'A2';
   let currentType = '';
   let currentExercise = null;
 
-  const exercises = {
-    email: {
-      A1: [
-        {
-          id: 'a1-ziek',
-          title: 'Ziek melden',
-          icon: '🤒',
-          desc: 'Schrijf een korte e-mail dat je ziek bent',
-          to: 'leraar@school.nl',
-          subject: 'Ziek',
-          greeting: 'Beste mevrouw,',
-          closing: 'Groetjes,',
-          task: 'Je bent ziek en kunt niet naar de les komen. Schrijf een e-mail aan je lerares.',
-          points: ['Schrijf dat je ziek bent', 'Schrijf wanneer je terugkomt'],
-          example: 'Beste mevrouw,\n\nIk ben ziek. Ik kom morgen niet naar de les. Ik kom woensdag terug.\n\nGroetjes,\n[naam]'
-        }
-      ],
-      A2: [
-        {
-          id: 'a2-afspraak',
-          title: 'Afspraak verzetten',
-          icon: '📅',
-          desc: 'Schrijf een e-mail om een afspraak te verzetten',
-          to: 'amberdegroot@mail.nl',
-          subject: 'Afspraak',
-          greeting: 'Beste Amber,',
-          closing: 'Vriendelijke groet,',
-          task: 'U volgt een opleiding. U hebt morgen een afspraak met Amber, een andere student. U kunt niet en wilt een andere afspraak maken.',
-          points: ['Schrijf dat u de afspraak wilt verzetten', 'Schrijf waarom u dat wilt (bedenk zelf waarom)', 'Stel een nieuwe datum voor'],
-          example: 'Beste Amber,\n\nIk wil onze afspraak verzetten. Morgenochtend ben ik ziek en ik heb een afspraak met de huisarts.\n\nKunnen we een nieuwe afspraak maken op donderdag 3 juli? Kan dat voor jou?\n\nVriendelijke groet,\n[naam]'
-        },
-        {
-          id: 'a2-dienst',
-          title: 'Dienst ruilen',
-          icon: '🔄',
-          desc: 'Schrijf een e-mail om een dienst te ruilen met een collega',
-          to: 'farida@hmail.com',
-          subject: 'Dienst ruilen',
-          greeting: 'Hallo Farida,',
-          closing: 'Groetjes,',
-          task: 'U moet zondag werken maar u wilt graag vrij. U schrijft een e-mail aan uw collega Farida. U vraagt of zij met u wil ruilen.',
-          points: ['Schrijf waarom u mailt', 'Schrijf waarom u wilt ruilen (bedenk het zelf)', 'Schrijf op welke dag u wel kunt werken'],
-          example: 'Hallo Farida,\n\nIk schrijf je omdat ik zondag niet kan werken. Op zondag komen mijn ouders op bezoek en dat is heel belangrijk voor mij.\n\nKun jij zondag voor mij werken? Ik kan dan zaterdag voor jou werken.\n\nGroetjes,\n[naam]'
-        },
-        {
-          id: 'a2-boek',
-          title: 'Boek lenen',
-          icon: '📚',
-          desc: 'Schrijf een e-mail om een boek te lenen',
-          to: 'wilma@email.nl',
-          subject: 'Boek',
-          greeting: 'Beste Wilma,',
-          closing: 'Groetjes,',
-          task: "Voor uw opleiding Techniek heeft u snel het boek 'Natuurkunde 1' nodig. In de bibliotheek is het boek niet. Een medestudente heeft het boek.",
-          points: ['Schrijf welk boek u wilt lenen', 'Schrijf waarom u het boek van haar wilt lenen', 'Schrijf wanneer ze het boek terugkrijgt (bedenk zelf wanneer)'],
-          example: "Beste Wilma,\n\nIk heb snel het boek 'Natuurkunde 1' nodig voor mijn opleiding Techniek. Het staat niet in de bibliotheek.\n\nKun jij het boek aan mij lenen? Jij krijgt het boek op 5 juli terug.\n\nAlvast hartelijk dank voor je reactie.\n\nGroetjes,\n[naam]"
-        },
-        {
-          id: 'a2-vrij',
-          title: 'Vrije dag aanvragen',
-          icon: '🏖️',
-          desc: 'Schrijf een e-mail aan je chef voor een vrije dag',
-          to: 'jjansen@werk.nl',
-          subject: 'Vrij',
-          greeting: 'Beste meneer Jansen,',
-          closing: 'Vriendelijke groet,',
-          task: 'U wilt volgende week een dag vrij vragen. U schrijft een e-mail aan uw chef, meneer Jansen.',
-          points: ['Schrijf wanneer u vrij wilt hebben (bedenk zelf een dag en datum)', 'Schrijf waarom u vrij wilt hebben (bedenk zelf waarom)'],
-          example: 'Beste meneer Jansen,\n\nIk wil graag vrijdag 3 juli vrij hebben. Die dag is de verjaardag van mijn moeder en ik wil haar bezoeken.\n\nKunt u mij die dag vrij geven?\n\nVriendelijke groet,\n[naam]'
-        }
-      ]
-    },
-    tekst: {
-      A1: [
-        {
-          id: 'a1-mezelf',
-          title: 'Over mezelf',
-          icon: '👤',
-          desc: 'Schrijf een korte tekst over jezelf',
-          task: 'Schrijf een korte tekst over jezelf voor de wijkkrant. Schrijf minimaal twee zinnen.',
-          points: ['Hoe heet je?', 'Waar woon je?', 'Wat doe je?'],
-          example: 'Ik heet [naam]. Ik woon in Den Haag. Ik werk bij een bedrijf.'
-        }
-      ],
-      A2: [
-        {
-          id: 'a2-feest',
-          title: 'Feest',
-          icon: '🎉',
-          desc: 'Schrijf een tekst over een feest voor de wijkkrant',
-          task: 'U schrijft over een feest dat u elk jaar viert voor de wijkkrant. Schrijf minimaal drie zinnen.',
-          points: ['Waarom viert u het feest?', 'Wie komen er op het feest?', 'Wat doet u op het feest?'],
-          example: 'Elk jaar vier ik het paasfeest omdat ik christen ben. Mijn gezin en ik vieren het feest samen. Op het feest hebben wij veel eten en drinken. Wij gaan ook naar de kerk.'
-        },
-        {
-          id: 'a2-kleren',
-          title: 'Mooiste kleren',
-          icon: '👕',
-          desc: 'Schrijf een tekst over de kleren die je het liefst draagt',
-          task: 'U schrijft over de kleren die u het liefst draagt voor de wijkkrant. Schrijf minimaal drie zinnen.',
-          points: ['Wat draagt u het liefst?', 'Hoe zien de kleren eruit?', 'Wanneer draagt u deze kleren?'],
-          example: 'Ik draag het liefst een blauwe spijkerbroek met een wit t-shirt. De kleren zijn simpel maar zien er heel mooi en netjes uit. Ik draag deze kleren meestal in de zomer omdat het dan warm is.'
-        },
-        {
-          id: 'a2-eten',
-          title: 'Lievelingseten',
-          icon: '🍕',
-          desc: 'Schrijf een tekst over je lievelingseten',
-          task: 'U schrijft over uw lievelingseten voor de wijkkrant. Schrijf minimaal drie zinnen.',
-          points: ['Wat is uw lievelingseten?', 'Waarom vindt u dit lekker?', 'Wanneer eet u dit het liefst?'],
-          example: "Mijn lievelingseten is pizza. Ik vind pizza heel lekker omdat het verschillende opties heeft. Het heeft opties met groenten of met vlees. Ik eet pizza het liefst 's avonds."
-        }
-      ]
-    },
-    formulier: {
-      A1: [
-        {
-          id: 'a1-contactformulier',
-          title: 'Contactformulier',
-          icon: '📝',
-          desc: 'Vul een eenvoudig contactformulier in',
-          task: 'Vul het contactformulier in. Bedenk zelf de gegevens.',
-          fields: [
-            { label: 'Voornaam', placeholder: 'Vul je voornaam in' },
-            { label: 'Achternaam', placeholder: 'Vul je achternaam in' },
-            { label: 'E-mail', placeholder: 'Vul je e-mailadres in' },
-            { label: 'Bericht', placeholder: 'Schrijf hier je bericht...', multiline: true }
-          ],
-          example: 'Voornaam: Jan\nAchternaam: de Vries\nE-mail: jan@email.nl\nBericht: Ik heb een vraag over uw product.'
-        }
-      ],
-      A2: [
-        {
-          id: 'a2-sportschool',
-          title: 'Inschrijven sportschool',
-          icon: '💪',
-          desc: 'Vul het inschrijfformulier voor Sportclub SPRINT in',
-          task: 'U wilt graag sporten. U gaat naar een sportschool in uw buurt. Vul het formulier in. Sommige gegevens moet u zelf bedenken.',
-          fields: [
-            { label: 'Voor- en achternaam', placeholder: 'Vul uw naam in' },
-            { label: 'Adres', placeholder: 'Vul uw adres in' },
-            { label: 'Postcode', placeholder: 'bijv. 2511 AB' },
-            { label: 'Woonplaats', placeholder: 'Vul uw woonplaats in' },
-            { label: 'Telefoonnummer', placeholder: 'Vul uw telefoonnummer in' },
-            { label: 'Geboortedatum', placeholder: 'bijv. 01-01-1990' },
-            { label: 'Groepsles (Fitness / Yoga / Hardlopen)', placeholder: 'Kies een groepsles' },
-            { label: 'Hoe vaak per week?', placeholder: '1x / 2x / meer dan 2x' },
-            { label: 'Waarom kiest u voor deze groepsles?', placeholder: 'Schrijf hier uw reden...', multiline: true },
-            { label: 'Hoe is uw gezondheid?', placeholder: 'Beschrijf uw gezondheid...', multiline: true }
-          ],
-          example: 'Naam: Oluwole Akin\nAdres: Theresiastraat 1\nPostcode: 2593 AA\nWoonplaats: Den Haag\nTelefoonnummer: 0612345678\nGeboortedatum: 01-01-1990\nGroepsles: Fitness\nHoe vaak: 2x per week\nWaarom: Ik wil fit blijven en gezond leven.\nGezondheid: Ik ben gezond. Ik heb geen problemen.'
-        }
-      ]
-    },
-    vrij: {
-      A1: [
-        {
-          id: 'a1-weekend',
-          title: 'Mijn weekend',
-          icon: '🌞',
-          desc: 'Schrijf over wat je dit weekend doet',
-          task: 'Schrijf twee of drie zinnen over wat je dit weekend doet.',
-          points: ['Wat doe je zaterdag?', 'Wat doe je zondag?'],
-          example: 'Dit weekend ga ik naar de markt. Op zondag eet ik met mijn familie. Wij eten samen thuis.'
-        }
-      ],
-      A2: [
-        {
-          id: 'a2-verhuizen',
-          title: 'Verhuizen',
-          icon: '📦',
-          desc: 'Schrijf een e-mail aan een vriend voor hulp bij verhuizen',
-          to: 'tom@email.nl',
-          subject: 'Verhuizen',
-          greeting: 'Hallo Tom,',
-          closing: 'Groetjes,',
-          task: 'U gaat verhuizen naar een nieuw huis. U schrijft een e-mail aan uw vriend Tom. U vraagt of hij wil helpen met verhuizen.',
-          points: ['Schrijf wanneer u gaat verhuizen (dag + datum)', 'Schrijf waarom u zijn hulp nodig heeft', 'Vraag of hij kan helpen'],
-          example: 'Hallo Tom,\n\nIk schrijf je omdat ik op zaterdag 30 juni ga verhuizen naar mijn nieuwe huis. Ik heb twee grote banken en ik kan ze niet alleen dragen.\n\nKun je me helpen met verhuizen? Heb je die dag tijd?\n\nGroetjes,\n[naam]'
-        }
-      ]
-    }
-  };
+  const API_ENDPOINT = '/.netlify/functions/chat';
+
+  async function callAI(prompt) {
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+    const data = await response.json();
+    return data.content?.[0]?.text || '';
+  }
 
   function selectLevel(level) {
     currentLevel = level;
@@ -817,46 +454,98 @@
     document.querySelector('.level-card.' + level.toLowerCase()).classList.add('selected');
   }
 
-  function goToExerciseSelect(type) {
+  async function startDynamicExercise(type) {
     currentType = type;
-    const typeNames = { email: 'E-mail schrijven', tekst: 'Tekst schrijven', formulier: 'Formulier invullen', vrij: 'Vrij schrijven' };
-    document.getElementById('select-title').textContent = typeNames[type];
-    document.getElementById('select-level-pill').textContent = currentLevel;
-    document.getElementById('select-subtitle').textContent = `${currentLevel} oefeningen — kies er een`;
+    document.getElementById('ex-title-text').textContent = getTypeName(type);
+    document.getElementById('ex-level-pill').textContent = currentLevel;
+    document.getElementById('progress-fill').style.width = '20%';
+    showScreen('exercise');
 
-    const list = document.getElementById('exercise-list');
-    list.innerHTML = '';
-    const exs = (exercises[type] && exercises[type][currentLevel]) || [];
+    const body = document.getElementById('exercise-body');
+    body.innerHTML = `
+      <div class="loading-state">
+        <div class="generating-badge">
+          <div class="generating-dot"></div>
+          AI maakt jouw oefening...
+        </div>
+        <div class="loading-dots">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="loading-text">Een unieke ${getTypeName(type).toLowerCase()} opdracht wordt gegenereerd</div>
+      </div>
+    `;
 
-    if (exs.length === 0) {
-      list.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;font-size:14px;">Geen oefeningen beschikbaar voor dit niveau.</div>';
-    } else {
-      exs.forEach(ex => {
-        const el = document.createElement('div');
-        el.className = 'ex-item';
-        el.innerHTML = `
-          <div class="ex-item-icon">${ex.icon}</div>
-          <div class="ex-item-info">
-            <div class="ex-item-name">${ex.title}</div>
-            <div class="ex-item-desc">${ex.desc}</div>
-          </div>
-          <div class="ex-item-arrow">›</div>
-        `;
-        el.onclick = () => startExercise(ex);
-        list.appendChild(el);
-      });
+    try {
+      const exerciseJson = await generateExercise(type);
+      currentExercise = exerciseJson;
+      document.getElementById('progress-fill').style.width = '33%';
+      renderExercise(exerciseJson);
+    } catch (e) {
+      body.innerHTML = `
+        <div class="feedback-card" style="border-color:#F87171;margin-top:20px;">
+          <div style="color:#F87171;font-size:14px;">Er is een fout opgetreden. Probeer het opnieuw.</div>
+        </div>
+        <button class="try-again-btn" style="margin-top:16px;" onclick="startDynamicExercise('${type}')">↩ Probeer opnieuw</button>
+      `;
     }
-
-    showScreen('select');
   }
 
-  function startExercise(ex) {
-    currentExercise = ex;
-    document.getElementById('ex-title-text').textContent = ex.title;
-    document.getElementById('ex-level-pill').textContent = currentLevel;
-    document.getElementById('progress-fill').style.width = '33%';
-    renderExercise(ex);
-    showScreen('exercise');
+  async function generateExercise(type) {
+    const typeDescriptions = {
+      email: 'een e-mail schrijfopdracht waarbij de student een e-mail schrijft aan iemand (collega, leraar, vriend, organisatie)',
+      tekst: 'een tekst schrijfopdracht waarbij de student een korte tekst schrijft (voor wijkkrant, sociale media, een brief)',
+      formulier: 'een formulier invulopdracht waarbij de student een formulier invult (inschrijving, aanvraag, schade, klacht)',
+      vrij: 'een vrije schrijfopdracht over een dagelijks onderwerp'
+    };
+
+    const levelDesc = currentLevel === 'A1'
+      ? 'A1 niveau: zeer simpele zinnen, basale woordenschat, max 3 zinnen vereist'
+      : 'A2 niveau: eenvoudige zinnen, alledaagse situaties, min 3 zinnen vereist';
+
+    const prompt = `Je bent een Nederlandse taalleraar. Genereer een unieke schrijfopdracht voor een student.
+
+Type: ${typeDescriptions[type]}
+Niveau: ${levelDesc}
+
+Genereer een realistische, gevarieerde situatie. Gebruik verschillende contexten zoals werk, school, gezondheid, vrije tijd, winkelen, reizen, sport, familie, etc.
+
+Geef je antwoord ALLEEN als geldig JSON in dit exacte formaat (geen extra tekst):
+
+${type === 'email' ? `{
+  "title": "Korte titel van de opdracht",
+  "situation": "2-3 zinnen die de situatie beschrijven",
+  "to": "naam@email.nl",
+  "toName": "Voornaam van de ontvanger",
+  "subject": "Onderwerp van de e-mail",
+  "greeting": "Beste [naam], / Hallo [naam],",
+  "closing": "Vriendelijke groet, / Groetjes,",
+  "points": ["Punt 1 om te schrijven", "Punt 2 om te schrijven", "Punt 3 om te schrijven"],
+  "example": "Volledig voorbeeldantwoord"
+}` : type === 'tekst' ? `{
+  "title": "Korte titel van de opdracht",
+  "situation": "2-3 zinnen die de situatie beschrijven",
+  "minSentences": 3,
+  "points": ["Vraag 1", "Vraag 2", "Vraag 3"],
+  "example": "Volledig voorbeeldantwoord van minimaal 3 zinnen"
+}` : type === 'formulier' ? `{
+  "title": "Korte titel van de opdracht",
+  "situation": "2-3 zinnen die de situatie beschrijven",
+  "formTitle": "Naam van het formulier",
+  "fields": [
+    {"label": "Veldnaam", "placeholder": "Invultip", "multiline": false},
+    {"label": "Groot tekstveld", "placeholder": "Schrijf hier...", "multiline": true}
+  ],
+  "example": "Volledig voorbeeldantwoord"
+}` : `{
+  "title": "Korte titel van de opdracht",
+  "situation": "2-3 zinnen die de situatie beschrijven",
+  "points": ["Vraag of punt 1", "Vraag of punt 2", "Vraag of punt 3"],
+  "example": "Volledig voorbeeldantwoord"
+}`}`;
+
+    const raw = await callAI(prompt);
+    const clean = raw.replace(/```json|```/g, '').trim();
+    return JSON.parse(clean);
   }
 
   function renderExercise(ex) {
@@ -865,12 +554,18 @@
     const isForm = ex.fields;
 
     let html = `
+      <div style="margin-bottom:12px;">
+        <span class="generating-badge" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#10B981;">
+          ✨ Unieke AI opdracht
+        </span>
+      </div>
       <div class="task-card">
         <div class="task-title">${ex.title}</div>
-        <div class="task-desc">${ex.task}</div>
-        <div class="task-points">
-          ${(ex.points || []).map(p => `<div class="task-point"><div class="point-dot"></div><span>${p}</span></div>`).join('')}
-        </div>
+        <div class="task-desc">${ex.situation}</div>
+        ${ex.points ? `<div class="task-points">
+          ${ex.points.map(p => `<div class="task-point"><div class="point-dot"></div><span>${p}</span></div>`).join('')}
+        </div>` : ''}
+        ${ex.minSentences ? `<div style="margin-top:12px;font-size:12px;color:var(--accent);">✍️ Schrijf minimaal ${ex.minSentences} zinnen</div>` : ''}
       </div>
     `;
 
@@ -881,11 +576,14 @@
           <div class="email-meta">Onderwerp: <span>${ex.subject}</span></div>
           <div class="email-greeting">${ex.greeting}</div>
         </div>
-        <textarea class="answer-area" id="answer-input" placeholder="Schrijf hier jouw antwoord..."></textarea>
+        <textarea class="answer-area" id="answer-input" placeholder="Schrijf hier jouw e-mail..."></textarea>
         <div style="color:var(--text-muted);font-size:13px;margin-top:-12px;margin-bottom:16px;padding:0 4px;">${ex.closing} [jouw naam]</div>
       `;
     } else if (isForm) {
-      html += `<div style="margin-bottom:16px;">`;
+      html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;">`;
+      if (ex.formTitle) {
+        html += `<div style="font-size:14px;font-weight:600;margin-bottom:16px;color:var(--accent);">${ex.formTitle}</div>`;
+      }
       ex.fields.forEach((f, i) => {
         if (f.multiline) {
           html += `
@@ -897,7 +595,10 @@
           html += `
             <div style="margin-bottom:12px;">
               <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">${f.label}</div>
-              <input type="text" id="field-${i}" placeholder="${f.placeholder}" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+              <input type="text" id="field-${i}" placeholder="${f.placeholder}"
+                style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='var(--accent)'"
+                onblur="this.style.borderColor='var(--border)'">
             </div>`;
         }
       });
@@ -908,7 +609,7 @@
 
     html += `
       <button class="submit-btn" onclick="submitAnswer()">✓ Controleer mijn antwoord</button>
-      <button class="example-btn" onclick="showExample()">💡 Bekijk voorbeeldantwoord</button>
+      <button class="new-exercise-btn" onclick="startDynamicExercise('${currentType}')">🔀 Nieuwe opdracht genereren</button>
     `;
 
     body.innerHTML = html;
@@ -916,11 +617,11 @@
 
   function getAnswer() {
     const ex = currentExercise;
-    if (ex.fields) {
+    if (ex && ex.fields) {
       return ex.fields.map((f, i) => {
         const el = document.getElementById('field-' + i);
         return el ? `${f.label}: ${el.value}` : '';
-      }).filter(Boolean).join('\n');
+      }).filter(l => l.includes(':') && l.split(':')[1].trim()).join('\n');
     }
     const el = document.getElementById('answer-input');
     return el ? el.value : '';
@@ -934,9 +635,8 @@
     }
 
     document.getElementById('progress-fill').style.width = '66%';
-
-    const ex = currentExercise;
     const body = document.getElementById('exercise-body');
+    const ex = currentExercise;
 
     body.innerHTML = `
       <div class="loading-state">
@@ -947,59 +647,50 @@
       </div>
     `;
 
-    const prompt = `Je bent een Nederlandse taalleraar die studenten helpt met hun A1/A2 schrijfvaardigheidstoets.
+    const prompt = `Je bent een Nederlandse taalleraar die studenten helpt met hun ${currentLevel} schrijfvaardigheidstoets.
 
 Opdracht: "${ex.title}"
-Taakomschrijving: ${ex.task}
+Situatie: ${ex.situation}
 Vereiste punten: ${(ex.points || []).join(', ')}
 Niveau: ${currentLevel}
 
 Antwoord van de student:
 ${answer}
 
-Geef feedback in het Nederlands. Structuur EXACT zo (gebruik deze koppen):
+Geef feedback in het Nederlands. Structuur EXACT zo:
 
 ✅ WAT GOED IS
 [2-3 korte punten wat goed is]
 
 ✍️ VERBETERINGEN
-[Geef maximaal 3 verbeteringen in dit formaat:]
-FOUT: [de foute zin]
-BETER: [de verbeterde zin]
+[Maximaal 3 verbeteringen in dit formaat:]
+FOUT: [de foute zin of woord]
+BETER: [de verbeterde versie]
 
 📝 VERBETERDE VERSIE
 [Schrijf de volledige verbeterde versie]
 
 🎯 CIJFER: [getal]/10
 
-Wees positief en bemoedigend. Houd het simpel voor A1/A2 niveau.`;
+Wees positief en bemoedigend. Houd het simpel voor ${currentLevel} niveau.`;
 
     try {
-      const response = await fetch('/.netlify/functions/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
-      });
-
-      const data = await response.json();
-      const text = data.content?.[0]?.text || '';
-      renderFeedback(text, answer);
+      const text = await callAI(prompt);
+      renderFeedback(text);
     } catch (e) {
       body.innerHTML = `
         <div class="feedback-card" style="border-color:#F87171;">
           <div style="color:#F87171;font-size:14px;">Er is een fout opgetreden. Probeer het opnieuw.</div>
         </div>
-        <button class="try-again-btn" onclick="startExercise(currentExercise)">↩ Probeer opnieuw</button>
+        <button class="try-again-btn" onclick="renderExercise(currentExercise)">↩ Probeer opnieuw</button>
       `;
     }
   }
 
-  function renderFeedback(text, originalAnswer) {
+  function renderFeedback(text) {
     document.getElementById('progress-fill').style.width = '100%';
     const body = document.getElementById('exercise-body');
 
-    // Parse sections
-    const sections = {};
     const patterns = {
       good: /✅ WAT GOED IS\n([\s\S]*?)(?=✍️|📝|🎯|$)/,
       improvements: /✍️ VERBETERINGEN\n([\s\S]*?)(?=📝|🎯|$)/,
@@ -1007,6 +698,7 @@ Wees positief en bemoedigend. Houd het simpel voor A1/A2 niveau.`;
       score: /🎯 CIJFER:\s*([^\n]+)/
     };
 
+    const sections = {};
     for (const [key, pattern] of Object.entries(patterns)) {
       const match = text.match(pattern);
       sections[key] = match ? match[1].trim() : '';
@@ -1014,7 +706,6 @@ Wees positief en bemoedigend. Houd het simpel voor A1/A2 niveau.`;
 
     const score = sections.score || '?/10';
 
-    // Parse corrections
     let correctionsHtml = '';
     if (sections.improvements) {
       const lines = sections.improvements.split('\n');
@@ -1046,42 +737,22 @@ Wees positief en bemoedigend. Houd het simpel voor A1/A2 niveau.`;
           <div class="feedback-title">Feedback</div>
           <div class="score-badge">${score}</div>
         </div>
-
-        ${goodPoints ? `
-        <div class="feedback-section">
-          <div class="feedback-section-title">Wat goed is</div>
-          ${goodPoints}
-        </div>` : ''}
-
-        ${correctionsHtml ? `
-        <div class="feedback-section">
-          <div class="feedback-section-title">Verbeteringen</div>
-          ${correctionsHtml}
-        </div>` : ''}
+        ${goodPoints ? `<div class="feedback-section"><div class="feedback-section-title">Wat goed is</div>${goodPoints}</div>` : ''}
+        ${correctionsHtml ? `<div class="feedback-section"><div class="feedback-section-title">Verbeteringen</div>${correctionsHtml}</div>` : ''}
       </div>
 
       ${sections.improved ? `
-      <div style="margin-bottom:8px;font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;">Verbeterde versie</div>
-      <div class="improved-version">${sections.improved.replace(/\n/g, '<br>')}</div>
+        <div style="margin-bottom:8px;font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;">Verbeterde versie</div>
+        <div class="improved-version">${sections.improved.replace(/\n/g, '<br>')}</div>
       ` : ''}
 
-      <button class="try-again-btn" onclick="startExercise(currentExercise)">↩ Nog een keer proberen</button>
-      <button class="next-btn" onclick="showScreen('select')">Volgende oefening →</button>
+      <button class="try-again-btn" onclick="renderExercise(currentExercise)">↩ Zelfde opdracht opnieuw</button>
+      <button class="next-btn" onclick="startDynamicExercise('${currentType}')">🔀 Nieuwe opdracht →</button>
     `;
   }
 
-  function showExample() {
-    if (!currentExercise) return;
-    document.getElementById('modal-content').innerHTML = currentExercise.example.replace(/\n/g, '<br>');
-    document.getElementById('modal-overlay').classList.add('open');
-  }
-
-  function closeModal(e) {
-    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
-  }
-
-  function closeModalDirect() {
-    document.getElementById('modal-overlay').classList.remove('open');
+  function getTypeName(type) {
+    return { email: 'E-mail schrijven', tekst: 'Tekst schrijven', formulier: 'Formulier invullen', vrij: 'Vrij schrijven' }[type] || type;
   }
 
   function showScreen(name) {
@@ -1090,7 +761,6 @@ Wees positief en bemoedigend. Houd het simpel voor A1/A2 niveau.`;
     window.scrollTo(0, 0);
   }
 
-  // Default selection
   selectLevel('A2');
 </script>
 </body>
